@@ -1,0 +1,10 @@
+[
+    ["http://www.dainst.org/de/forschung/forschung-digital/idai.welt", "iDAI.welt"],
+    [],
+	["https://gazetteer.dainst.org/", "iDAI.gazetteer"],
+	["http://geoserver.dainst.org/", "iDAI.geoserver"],
+	["http://arachne.uni-koeln.de/", "iDAI.objects&nbsp;/&nbsp;Arachne"],
+	["http://zenon.dainst.org", "iDAI.bibliography&nbsp;/&nbsp;Zenon"],
+	["http://archwort.dainst.org", "iDAI.vocab"],
+	["http://hellespont.dainst.org", "Hellespont"]
+]

@@ -1,0 +1,139 @@
+@CHARSET "UTF-8";
+
+/* fonts */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic&subset=latin,latin-ext);
+
+/*
+addtions to idai-components.css
+*/
+
+body {
+	margin-top: 60px;
+	margin-bottom: 250px;
+}
+
+#navbar_left {
+	padding-left:0px; 
+	position:relative
+}
+
+#projectLogo img {
+	height: 36px; 
+	margin-top: 8px;
+}
+
+#project_title {
+	height: 36px; 
+	margin-top: 10px;
+	vertical-align: middle; 
+	border: 0px none;
+	line-height: 36px;
+	color: white;
+	font-weight: bold;
+	font-size: large;
+}
+
+.navbar-collapse {
+	padding-left: 10px; 
+	height: 0px;
+}
+.navbar_mostright {
+	margin-right: 30px; 
+	margin-left: 5px
+}
+
+
+/* footer */
+#idai-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 30px;
+	background-color: #e2e2e2;
+}
+
+
+
+/* override jquery UI Interaction states */
+
+.ui-widget {
+    font-family: sans-serif;
+    font-size: 1.1em;
+}
+.ui-widget .ui-widget {
+    font-size: 1em;
+}
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: sans-serif;
+    font-size: 1em;
+}
+.ui-widget-content {
+    border: 0px;
+    background: none;
+    color: white;
+}
+.ui-widget-content a {
+    color: #333333;
+}
+.ui-widget-header {
+    border: 1px solid #bbbbbb;
+    background: none;
+    color: #444444;
+    font-weight: bold;
+}
+.ui-widget-header a {
+    color: #444444;
+}
+
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    border: 1px solid #cccccc;
+    background: none;
+    font-weight: bold;
+    color: #3383bb;
+}
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #3383bb;
+    text-decoration: none;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #bbbbbb;
+    background: none;
+    font-weight: bold;
+    color: #599fcf;
+}
+.ui-state-hover a,
+.ui-state-hover a:hover {
+    color: #599fcf;
+    text-decoration: none;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    border: 0px;
+    background: rgba(116,141,181,.9);;
+    font-weight: normal;
+    color: #ffffff;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+.ui-widget:active {
+    outline: none;
+}
+
