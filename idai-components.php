@@ -152,7 +152,7 @@ namespace idai {
 							
 			foreach ($this->settings['scripts'] as $script) {
 				if ($script['include']) {
-					$code .= "<script type='text/javascript' src='{$path}{$script['src']}'></script>";
+					$code .= "\n<script type='text/javascript' src='{$path}{$script['src']}'></script>";
 				}
 			}
 				
