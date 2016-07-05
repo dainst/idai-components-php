@@ -41,7 +41,9 @@ body {
 	margin-right: 30px; 
 	margin-left: 5px
 }
-
+.navbar-right .dropdown-menu {
+	left: 0px
+}
 
 /* footer */
 #idai-footer {

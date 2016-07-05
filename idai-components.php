@@ -83,6 +83,22 @@ namespace idai {
 						'label' => 'somemail@dainst.org',
 						'href' => 'mailto:somemail@dainst.org',
 					)
+				),
+				
+				// select jquery+navbar or jquery+boostrap
+				"scripts"	=> array(
+					'jquery' 	=> array(
+						'include' 	=>	true,
+						'src'		=>	'script/jquery-2.2.4.min.js'
+					),
+					'bootstrap' => array(
+						'include' 	=>	false,
+						'src'		=>	'script/bootstrap.min.js'
+					),
+					'navbar' => array(
+						'include' 	=>	true,
+						'src'		=>	'script/idai-navbar.js'
+					)
 				)
 				
 
@@ -92,16 +108,16 @@ namespace idai {
 			
 			// default callbacks			
 			$this->_defaults['buttons']['register']['show'] = function($btn, $set) {
-				$btn['invisible'] 	= ($set['user']['name']); 
+				$btn['invisible']	= ($set['user']['name']);
 				return $btn;
 			};
 			$this->_defaults['buttons']['usermenu']['show'] = function($btn, $set) {
 				$btn['label']		= $set['user']['name'];
-				$btn['invisible'] 	= (!$set['user']['name']); 
+				$btn['invisible']	= (!$set['user']['name']);
 				return $btn;
 			};
 			$this->_defaults['buttons']['login']['show'] = function($btn, $set) {
-				$btn['invisible'] 	= ($set['user']['name']);
+				$btn['invisible']	= ($set['user']['name']);
 				return $btn;
 			};
 			
@@ -132,10 +148,14 @@ namespace idai {
 				<link type='image/x-icon' href='{$path}img/favicon.ico' rel='icon' />
 	  			<link type='image/x-icon' href='{$path}img/favicon.ico' rel='shortcut icon' />
 				<link rel='stylesheet' href='{$path}style/idai-components.min.css' type='text/css' media='screen' />
-				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />
-				<script type='text/javascript' src='{$path}script/idai-navbar.js'></script>
-			";
-			
+				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />";
+							
+			foreach ($this->settings['scripts'] as $script) {
+				if ($script['include']) {
+					$code .= "<script type='text/javascript' src='{$path}{$script['src']}'></script>";
+				}
+			}
+				
 			if ($this->settings['return']) {
 				return $code;
 			} else {
@@ -161,7 +181,7 @@ namespace idai {
 					<div class="pull-left">
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle"><img src="<?php echo $this->settings['webpath']; ?>img/kleinergreif.png" id="brand-img"> <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle" data-toggle='dropdown'><img src="<?php echo $this->settings['webpath']; ?>img/kleinergreif.png" id="brand-img"> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<?php foreach($this->settings['projects'] as $k=>$v) { ?>
 										<?php if (count($v) == 2) { ?>

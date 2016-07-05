@@ -10,11 +10,17 @@
  */
 
 jQuery(document).ready(function(){
+		
+	var bindingFn = (parseFloat(jQuery.fn.jquery) <= 1.7) ? 'delegate' : 'on';
 	
-	var bindingFn = (parseFloat(jQuery.fn.jquery) <= 1.7) ? jQuery('body').delegate : jQuery('body').on;
-	
-	jQuery('#dai_navbar .dropdown-toggle').click(function(that) {
+	jQuery('html')[bindingFn]('click', function(event) {
     	$('.dropdown-menu').toggle(false);
+    	console.log("!");
+	});
+	
+	jQuery('#dai_navbar .dropdown-toggle')[bindingFn]('click', function(event) {
+		$('.dropdown-menu').toggle(false);
 		$(this).parent().find('.dropdown-menu').toggle();
+		event.stopImmediatePropagation();
     });
 });
