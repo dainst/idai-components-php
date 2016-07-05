@@ -11,9 +11,13 @@ namespace idai {
 				
 				"webpath" => "",
 				
+				"return" => false, // return or echo everything?
+				
 				"logo" => array(
 					"src" => "small logo for header",
-					"text" => "ProjectTitle"
+					"text" => "ProjectTitle",
+					"href" => "/",
+					"href2" => false // for text only
 				),
 				
 				"search" => array(
@@ -22,23 +26,39 @@ namespace idai {
 					"method" => 'get',
 					"onsubmit" => '',
 					"label" => "SEARCH",
-					"name" => 'q'
+					"name" => 'q',
+					"params" => array()
 				),
 
 				"buttons" => array(
+					"usermenu"	=>  array(
+						"label" => "Usermenu",
+						"submenu" => array(
+							"logout" => array(
+								"href" => "#",
+								"label" => "Sign Out",
+								'glyphicon' => 'log-out'
+							)
+						)
+					),
 					"login" => array(
-						"href" => "#",
-						"label" => "Sign In",
-						'glyphicon' => 'log-in',
+							"href" => "#",
+							"label" => "Sign In",
+							'glyphicon' => 'log-in'
 					),
 					"register" => array(
 						"href" => "#",
 						"label" => "Sign Up"
 					),
-					"contact" => array(
+					"zzzzcontact" => array(
 						"href" => "#",
 						'glyphicon' => 'envelope'
-					)
+					),
+
+				),
+				
+				"user" => array(
+					"name" => false	
 				),
 				
 				"version" => '1',
@@ -70,12 +90,29 @@ namespace idai {
 		
 		function __construct($settings = array()) {
 			
+			// default callbacks			
+			$this->_defaults['buttons']['register']['show'] = function($btn, $set) {
+				$btn['invisible'] 	= ($set['user']['name']); 
+				return $btn;
+			};
+			$this->_defaults['buttons']['usermenu']['show'] = function($btn, $set) {
+				$btn['label']		= $set['user']['name'];
+				$btn['invisible'] 	= (!$set['user']['name']); 
+				return $btn;
+			};
+			$this->_defaults['buttons']['login']['show'] = function($btn, $set) {
+				$btn['invisible'] 	= ($set['user']['name']);
+				return $btn;
+			};
+			
 			// construct settings
 			$set = $this->_defaults;
 			$set['projects'] = json_decode(file_get_contents(realpath(__DIR__ . '/projects.json')));
 			$set = array_replace_recursive($set, $settings);
 			$this->settings = $set;
 			$this->path = realpath(__DIR__);
+			
+			
 		}
 	
 		/**
@@ -83,27 +120,41 @@ namespace idai {
 		 * include in <head>
 		 */
 		function header($path = null) { 
+
 			if ($path) {
 				$this->settings['webpath'] = $path;
 			} else {
 				$path = $this->settings['webpath'];
 			}
 			//$path = realpath($path);
-			?>
-			<link type="image/x-icon" href="<?php echo $path;?>img/favicon.ico" rel="icon" />
-  			<link type="image/x-icon" href="<?php echo $path;?>img/favicon.ico" rel="shortcut icon" />
-			<link rel="stylesheet" href="<?php echo $path;?>style/idai-components.min.css" type="text/css" media="screen" />
-			<link rel="stylesheet" href="<?php echo $path;?>style/idai-navbar.css" type="text/css" media="screen" />
-			<script type="text/javascript" src="<?php echo $path;?>script/idai-navbar.js"></script>
-		<?php }
+
+			$code = "
+				<link type='image/x-icon' href='{$path}img/favicon.ico' rel='icon' />
+	  			<link type='image/x-icon' href='{$path}img/favicon.ico' rel='shortcut icon' />
+				<link rel='stylesheet' href='{$path}style/idai-components.min.css' type='text/css' media='screen' />
+				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />
+				<script type='text/javascript' src='{$path}script/idai-navbar.js'></script>
+			";
+			
+			if ($this->settings['return']) {
+				return $code;
+			} else {
+				echo $code;
+			}
+		}
 		
 		/**
 		 * render the blue navbar
 		 * include after body
 		 * 
-		 * 
+		 * @param some $content directly insert in the navbar
+		 * @return string
 		 */
-		function navbar() { ?>
+		function navbar($content) { 
+			if ($this->settings['return']) {
+				$return = ob_start();
+			}
+			?>
 			<div id='dai_navbar' class='navbar navbar-default navbar-fixed-top'>
 				<div id="navbar_left">
 				
@@ -123,8 +174,10 @@ namespace idai {
 							</li>
 						</ul>
 					</div>
-					<a href="/" id="projectLogo">
-						<?php echo "<img src='{$this->settings['logo']['src']}' class='pull-left'></a>"; ?>
+					<a href="<?php echo $this->settings['logo']['href']; ?>" id="projectLogo">
+						<?php echo "<img src='{$this->settings['logo']['src']}' class='pull-left'>"; ?>
+					</a>
+					<a href="<?php echo $this->settings['logo']['href2'] ? $this->settings['logo']['href2'] : $this->settings['logo']['href']; ?>" id="projectLogo">
 						<?php echo "<span id='project_title' class='pull-left'>{$this->settings['logo']['text']}</span>"; ?>
 					</a>
 				</div>
@@ -146,6 +199,9 @@ namespace idai {
 								name="<?php echo $this->settings['search']['name']; ?>" 
 								type="text"
 							>
+							<?php foreach ($this->settings['search']['params'] as $param => $val) {?>
+								<input type='hidden' name='<?php echo $param; ?>' value='<?php echo $val; ?>'>
+							<?php } ?>
 							<span class="navbar-left input-group-btn">
 								<button type="submit" class="btn btn-default" data-nav="search">
 									<span class="glyphicon glyphicon-search"></span>
@@ -153,13 +209,16 @@ namespace idai {
 							</span>
 						</form>
 					<?php } ?>
-				
+									
 					<ul class="nav navbar-nav navbar-right">
 						<?php 
+
+						ksort($a);
+						
+						ksort($this->settings['buttons']);
 						if (count($this->settings['buttons'])) {
 							//echo '<li><div class="btn-group btn-group-sm">';
 							foreach ($this->settings['buttons'] as $btn) {
-								
 								// mark most right btn
 								if (is_array($btn) and ($i++ == count($this->settings['buttons']) - 1)) {
 									$btn['class'] .= ' navbar_mostright';
@@ -171,41 +230,59 @@ namespace idai {
 						}
 						?>
 					</ul>
+					<?php echo $content; ?>
 				</div>
 			</div>
-		<?php }
+			<?php 
+			if ($this->settings['return']) {
+				return ob_get_clean($return);
+			}
+		}
 		
-		private function _navbar_button($data) {
+		private function _navbar_button(&$data) {
 			//print_r($data); die("!");
 			if (!is_array($data)) {
 				 echo (string) $data;
 				 return;
 			}
 			
-			if (isset($data['submenu']) and count($data['submenu'])) {
-				echo "<li class='dropdown {$data['class']}'>";
-				echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>{$data['label']} <b class='caret'></b></a>";
-				echo '<ul class="dropdown-menu">';
-				foreach ($data['submenu'] as $sub) {
-					echo "<li><a href='{$sub['href']}' onclick='{$sub['onclick']}'>{$sub['label']}</a></li>";
-				}
-				echo "</ul>";
-				echo "</li>";
-				return;			
+			// call transform function if available
+			if (isset($data['show']) and (gettype($data['show']) == 'object')) {
+				$data = call_user_func($data['show'], $data, $this->settings);
 			}
 			
-			//class='btn btn-sm btn-default navbar-btn'
-			echo "<li class='{$data['class']}'>";
-			echo "<a type='button' href='{$data['href']}' onclick='{$data['onclick']}'>{$data['label']}";
-			if (isset($data['glyphicon'])) {
-				echo "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>";
+
+			if (!isset($data['invisible']) or !$data['invisible']) {
+			
+				if (isset($data['submenu']) and count($data['submenu'])) {
+					echo "<li class='dropdown {$data['class']}'>";
+					echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>{$data['label']} <b class='caret'></b></a>";
+					echo '<ul class="dropdown-menu">';
+					foreach ($data['submenu'] as $sub) {
+						echo "<li><a href='{$sub['href']}' onclick='{$sub['onclick']}'>{$sub['label']}</a></li>";
+					}
+					echo "</ul>";
+					echo "</li>";
+					return;			
+				}
+
+
+				echo "<li class='{$data['class']}'>"; 			//class='btn btn-sm btn-default navbar-btn'
+				echo "<a type='button' href='{$data['href']}' onclick='{$data['onclick']}'>";
+				if (isset($data['glyphicon'])) {
+					echo "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>";
+				}
+				echo "{$data['label']}</a></li>";
 			}
-			echo "</a></li>";
 		}
 		
 		
-		function footer() { ?>
-			<div class="row">
+		function footer() { 
+			if ($this->settings['return']) {
+				$return = ob_start();
+			}			
+			?>
+			<div id="idai-footer" class="row">
 				<div class="col-md-12 text-center">
 					<p>
 						<?php foreach ($this->settings['institutions'] as $inst) { ?>
@@ -218,12 +295,17 @@ namespace idai {
 					<p>						
 						<?php echo implode(' | ', array_map(array($this,_footer_link), $this->settings['footer_links'])); ?>
 					</p>
-					<p ng-show="version">
-						<small><?php echo $this->settings['version']; ?></small>
-					</p>
+					<?php if (isset($this->settings['version']) and $this->settings['version']) { ?>
+						<p><small><?php echo $this->settings['version']; ?></small></p>
+					<?php } ?>
 				</div>
 			</div>
-		<?php }
+			<?php 
+			if ($this->settings['return']) {
+				return ob_get_clean($return);
+			}
+		
+		}
 		
 		private function _footer_link($link) {
 			$target = (isset($link['target']) and $link['target']) ? 'target="' . $link['target'] . '"' : '';	

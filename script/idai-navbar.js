@@ -1,6 +1,20 @@
-$(document).ready(function(){
-    $(this).on('click', '#dai_navbar .dropdown-toggle', function(that) {
-    	console.log('hi', that);
-    	$(this).parent().find('.dropdown-menu').toggle();
+/**
+ * 
+ * idai-components-php.js
+ * 
+ * this brings the dropdown menus in the diai-navbar to life,
+ * if you don't have bootstrap.js
+ * or angular.js
+ * it needs jquery, but is compatible to very old versions of it
+ * 
+ */
+
+jQuery(document).ready(function(){
+	
+	var bindingFn = (parseFloat(jQuery.fn.jquery) <= 1.7) ? jQuery('body').delegate : jQuery('body').on;
+	
+	jQuery('#dai_navbar .dropdown-toggle').click(function(that) {
+    	$('.dropdown-menu').toggle(false);
+		$(this).parent().find('.dropdown-menu').toggle();
     });
 });
