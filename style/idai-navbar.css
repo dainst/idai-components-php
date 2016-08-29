@@ -37,12 +37,79 @@ body {
 	padding-left: 10px; 
 	height: 0px;
 }
-.navbar_mostright {
-	margin-right: 30px; 
-	margin-left: 5px
+
+.navbar-collapse .navbar-nav:first-of-type li:last-child {
+	margin-right: 30px;
 }
+
 .navbar-right .dropdown-menu {
 	left: 0px
+}
+
+#dai_navbar .dropdown-menu > li > a {
+    white-space: normal !important;
+}
+
+.navbar-nav .glyphicon {
+	padding-top: 2px;
+	height: 20px
+} 
+
+.navbar-nav .glyphicon + .nav-label {
+	padding-left: 4px
+}
+
+.navbar-nav .longlabel {
+	display: none	
+}
+
+.dropdown-title {
+	padding: 3px 20px !important;
+	cursor: default;
+	color: silver;
+	border-bottom: 1px solid silver
+}
+
+/* collapsable */
+@media (max-width: 992px) {
+
+	.collapse.in {
+	    display: block !important;
+	    height: 100%;
+	    margin-top: 50px;
+	}
+	
+	.collapse.in .dropdown-menu {
+		float: none;
+		position: relative !important;
+		display: block !important;
+		background: rgba(255, 255, 255, 0.5) !important;
+		border-top-left-radius: 4px !important;
+		border-top-right-radius: 4px !important;
+	}
+	
+	.collapse.in .caret {
+		display: none
+	}
+	
+	.collapse.in .dropdown-menu::before {
+		display: none !important
+	}
+	
+	.collapse.in .navbar-nav:first-of-type li:last-child,
+	.collapse.in .navbar_mostright {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+	
+	.collapse.in .navbar-nav .longlabel {
+		display: inline
+	}
+	
+	.collapse.in .dropdown-title {
+		display: none
+	}
+	
 }
 
 /* footer */
@@ -56,7 +123,9 @@ body {
 	margin-right: 0px;
 }
 
-
+.xx {
+	background: rgba(255,123,154,0.3)
+}
 
 /* override jquery UI Interaction states */
 
@@ -96,10 +165,16 @@ body {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-    border: 1px solid #cccccc;
-    background: none;
-    font-weight: bold;
-    color: #3383bb;
+
+    background-image: none;
+    color: #333;
+    background-color: #F5F5F5;
+    border-color: #DDD;
+
+    border: 1px solid transparent;
+    border-radius: 3px;
+	font-size: x-small;
+    
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -141,3 +216,12 @@ body {
     outline: none;
 }
 
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {	    
+	color: #8A6D3B;
+    background-image: none;
+    background-color: #FCF8E3;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #FAEBCC;
+    border-radius: 4px;
+}

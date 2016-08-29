@@ -9,17 +9,30 @@
  * 
  */
 
-jQuery(document).ready(function(){
+window.isCollapsed = true;
 
-	var bindingFn = (parseFloat(jQuery.fn.jquery) <= 1.7) ? 'delegate' : 'on';
+jQuery(document).ready(function(){
 	
-	jQuery('html').click(function(event) {
-    	$('.dropdown-menu').toggle(false);
-	});
-	
-	jQuery('#dai_navbar .dropdown-toggle').click(function(event) {
+	var openDropdown = function(event) {
 		$('.dropdown-menu').toggle(false);
 		$(this).parent().find('.dropdown-menu').toggle();
 		event.stopImmediatePropagation();
-    });
+    }
+	
+	var closeDropDown = function(event) {
+		$('.dropdown-menu').toggle(false);
+	}
+	
+	var navbarToggle = function(event) {
+		window.isCollapsed = !window.isCollapsed;
+		console.log(window.isCollapsed);
+		$('#collapsable_navbar').toggleClass('in', !window.isCollapsed);
+	}
+	
+	jQuery('#dai_navbar .dropdown-toggle').mouseenter(openDropdown);
+	jQuery('#dai_navbar .dropdown-toggle').click(openDropdown);
+	jQuery('.dropdown-menu').parent().mouseleave(closeDropDown);
+	jQuery('body').click(closeDropDown);
+	jQuery('#dai_navbar .navbar-toggle').click(navbarToggle);
+	
 });

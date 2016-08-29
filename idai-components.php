@@ -61,7 +61,7 @@ namespace idai {
 					"name" => false	
 				),
 				
-				"version" => '1',
+				"version" => '1.0',
 				
 				"institutions" => array(
 					"dai" => array(
@@ -204,7 +204,15 @@ namespace idai {
 			 
 				<?php /* */ ?>
 			
-				<div class="navbar-collapse collapse">
+				<?php /* this button for mobile menu and stuff */ ?>				
+				<button class="navbar-toggle" type="button">
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</button>
+			
+				<div class="navbar-collapse collapse" id="collapsable_navbar">
 					<?php if (!$this->settings['search']['invisible'] and is_array($this->settings['search']) and count($this->settings['search'])) { ?>
 						<form 
 							class="navbar-left navbar-form input-group form-inline" 
@@ -232,18 +240,15 @@ namespace idai {
 									
 					<ul class="nav navbar-nav navbar-right">
 						<?php 
-
-						ksort($a);
-						
 						ksort($this->settings['buttons']);
 						if (count($this->settings['buttons'])) {
 							//echo '<li><div class="btn-group btn-group-sm">';
-							foreach ($this->settings['buttons'] as $btn) {
+							foreach ($this->settings['buttons'] as $id => $btn) {
 								// mark most right btn
 								if (is_array($btn) and ($i++ == count($this->settings['buttons']) - 1)) {
 									$btn['class'] .= ' navbar_mostright';
 								}
-								$this->_navbar_button($btn); 
+								$this->_navbar_button($btn, $id); 
 								
 							}
 							//echo '</div></li>';
@@ -252,6 +257,7 @@ namespace idai {
 					</ul>
 					<?php echo $content; ?>
 				</div>
+								
 			</div>
 			<?php 
 			if ($this->settings['return']) {
@@ -259,7 +265,7 @@ namespace idai {
 			}
 		}
 		
-		private function _navbar_button(&$data) {
+		private function _navbar_button(&$data, $id) {
 			//print_r($data); die("!");
 			if (!is_array($data)) {
 				 echo (string) $data;
@@ -275,11 +281,15 @@ namespace idai {
 			if (!isset($data['invisible']) or !$data['invisible']) {
 			
 				if (isset($data['submenu']) and count($data['submenu'])) {
-					echo "<li class='dropdown {$data['class']}'>";
-					echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>{$data['label']} <b class='caret'></b></a>";
+					echo "<li class='dropdown {$data['class']}' id='navbar-item-{$id}'>";
+					echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>";
+					echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';					
+					echo "<span class='nav-label'>{$data['label']}</span> <b class='caret'></b></a>";
 					echo '<ul class="dropdown-menu">';
 					foreach ($data['submenu'] as $sub) {
-						echo "<li><a href='{$sub['href']}' onclick='{$sub['onclick']}'>{$sub['label']}</a></li>";
+						echo "<li><a href='{$sub['href']}' onclick='{$sub['onclick']}'>";
+						echo (isset($sub['glyphicon'])) ? "<span class='glyphicon glyphicon-{$sub['glyphicon']}'></span>" : '';
+						echo "{$sub['label']}</a></li>";
 					}
 					echo "</ul>";
 					echo "</li>";
@@ -287,12 +297,10 @@ namespace idai {
 				}
 
 
-				echo "<li class='{$data['class']}'>"; 			//class='btn btn-sm btn-default navbar-btn'
+				echo "<li class='{$data['class']}' id='navbar-item-{$id}'>"; 			//class='btn btn-sm btn-default navbar-btn'
 				echo "<a type='button' href='{$data['href']}' onclick='{$data['onclick']}'>";
-				if (isset($data['glyphicon'])) {
-					echo "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>";
-				}
-				echo "{$data['label']}</a></li>";
+				echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';
+				echo "<span class='nav-label'>{$data['label']}</span></a></li>";
 			}
 		}
 		
@@ -317,6 +325,7 @@ namespace idai {
 					</p>
 					<?php if (isset($this->settings['version']) and $this->settings['version']) { ?>
 						<p><small><?php echo $this->settings['version']; ?></small></p>
+						<pre><?php var_dump($this->settings['version']); ?></pre>
 					<?php } ?>
 				</div>
 			</div>
