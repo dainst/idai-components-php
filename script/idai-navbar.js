@@ -35,4 +35,9 @@ jQuery(document).ready(function(){
 	jQuery('body').click(closeDropDown);
 	jQuery('#dai_navbar .navbar-toggle').click(navbarToggle);
 	
+	jQuery('.idai-infobox-toggle').click(function(evt) {
+		console.log('TECHNO!!!!', this, evt);
+		jQuery(this).find('.idai-infobox').toggle();
+	})
+	
 });

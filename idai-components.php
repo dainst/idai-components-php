@@ -325,7 +325,6 @@ namespace idai {
 					</p>
 					<?php if (isset($this->settings['version']) and $this->settings['version']) { ?>
 						<p><small><?php echo $this->settings['version']; ?></small></p>
-						<pre><?php var_dump($this->settings['version']); ?></pre>
 					<?php } ?>
 				</div>
 			</div>
@@ -337,8 +336,17 @@ namespace idai {
 		}
 		
 		private function _footer_link($link) {
-			$target = (isset($link['target']) and $link['target']) ? 'target="' . $link['target'] . '"' : '';	
-			return "{$link['text']} <a href='{$link['href']}' $target>{$link['label']}</a>";
+			
+			if ((isset($link['moreinfo']) and $link['moreinfo'] != '')) {
+				return "{$link['text']} <span class='idai-infobox-toggle'>{$link['label']}<span class='idai-infobox'>{$link['moreinfo']}</span></span>";
+			} else {
+				$target = (isset($link['target']) and $link['target']) ? 'target="' . $link['target'] . '"' : '';
+				$onclick = "href='{$link['href']}' $target";
+				return "{$link['text']} <a $onclick>{$link['label']} $moreinfo</a>";
+			}
+				
+			
+			
 		}
 		
 	}

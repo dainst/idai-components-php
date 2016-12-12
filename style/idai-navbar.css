@@ -123,8 +123,39 @@ body {
 	margin-right: 0px;
 }
 
-.xx {
-	background: rgba(255,123,154,0.3)
+.idai-infobox-toggle {
+	color:red;
+	cursor: pointer;;
+	color: #37588e;
+}
+
+.idai-infobox-toggle:focus,
+.idai-infobox-toggle:hover {
+	color: #223657;
+	text-decoration: underline;
+}
+
+.idai-infobox {
+	background-color: white;
+	display: none;
+	position: fixed;
+	top: 5em;
+	bottom: 3em;
+	left: 3em;
+	right: 3em;
+	background-color: #fff;
+	border: 1px solid rgba(0,0,0,.15);
+	box-shadow: 0 6px 12px rgba(0,0,0,.176);
+	padding: 2em;
+	overflow-y: auto;
+	color: black;
+}
+
+
+.idai-infobox:focus,
+.idai-infobox:hover {
+	color: #37588e;
+	text-decoration: none;
 }
 
 /* override jquery UI Interaction states */
