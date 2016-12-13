@@ -85,6 +85,8 @@ namespace idai {
 					)
 				),
 				
+				"footer_classes" => array(),
+				
 				// select jquery+navbar or jquery+boostrap
 				"scripts"	=> array(
 					'jquery' 	=> array(
@@ -310,9 +312,9 @@ namespace idai {
 				$return = ob_start();
 			}			
 			?>
-			<div id="idai-footer" class="row">
+			<div id="idai-footer" class="row <?php echo implode(" ", $this->settings["footer_classes"]); ?>">
 				<div class="col-md-12 text-center">
-					<p>
+					<p class="idai-footer-institutions">
 						<?php foreach ($this->settings['institutions'] as $inst) { ?>
 							<a href="<?php echo $inst['url']; ?>">
 								<?php $logo = (substr($inst['url'], 1, 4) == 'http') ? $inst['src'] : $this->settings['webpath'] . $inst['src']; ?>
@@ -320,7 +322,7 @@ namespace idai {
 							</a>
 						<?php } ?>
 					</p>
-					<p>						
+					<p class="idai-footer-links">
 						<?php echo implode(' | ', array_map(array($this,_footer_link), $this->settings['footer_links'])); ?>
 					</p>
 					<?php if (isset($this->settings['version']) and $this->settings['version']) { ?>
