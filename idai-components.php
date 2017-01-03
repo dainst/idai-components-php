@@ -263,7 +263,7 @@ namespace idai {
 			</div>
 			<?php 
 			if ($this->settings['return']) {
-				return ob_get_clean($return);
+				return ob_get_clean();
 			}
 		}
 		
@@ -332,7 +332,7 @@ namespace idai {
 			</div>
 			<?php 
 			if ($this->settings['return']) {
-				return ob_get_clean($return);
+				return ob_get_clean();
 			}
 		
 		}

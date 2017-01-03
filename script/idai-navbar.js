@@ -25,7 +25,6 @@ jQuery(document).ready(function(){
 	
 	var navbarToggle = function(event) {
 		window.isCollapsed = !window.isCollapsed;
-		console.log(window.isCollapsed);
 		$('#collapsable_navbar').toggleClass('in', !window.isCollapsed);
 	}
 	
@@ -36,7 +35,6 @@ jQuery(document).ready(function(){
 	jQuery('#dai_navbar .navbar-toggle').click(navbarToggle);
 	
 	jQuery('.idai-infobox-toggle').click(function(evt) {
-		console.log('TECHNO!!!!', this, evt);
 		jQuery(this).find('.idai-infobox').toggle();
 	})
 	

@@ -114,13 +114,18 @@ body {
 
 /* footer */
 #idai-footer {
+	padding: 20px 30px 10px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	padding: 30px;
 	background-color: #e2e2e2;
 	margin-left: 0px;
 	margin-right: 0px;
+}
+
+#idai-footer p:last-child {
+	margin-bottom: 0px
+
 }
 
 .idai-infobox-toggle {
@@ -156,6 +161,10 @@ body {
 .idai-infobox:hover {
 	color: #37588e;
 	text-decoration: none;
+}
+
+#idai-footer .logoImage {
+	height: 60px
 }
 
 	
