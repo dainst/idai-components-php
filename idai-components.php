@@ -67,7 +67,7 @@ namespace idai {
 					"dai" => array(
 						"title" => "dai_logo",
 						"src" => 'img/institutions/logo_dai.png',
-						"http://www.dainst.org"
+						"href" => "http://www.dainst.org"
 					)
 				),
 				
@@ -316,7 +316,7 @@ namespace idai {
 				<div class="col-md-12 text-center">
 					<p class="idai-footer-institutions">
 						<?php foreach ($this->settings['institutions'] as $inst) { ?>
-							<a href="<?php echo $inst['url']; ?>">
+							<a href="<?php echo $inst['href']; ?>">
 								<?php $logo = (substr($inst['url'], 1, 4) == 'http') ? $inst['src'] : $this->settings['webpath'] . $inst['src']; ?>
 								<img class="logoImage" alt="<?php echo $inst['title']; ?>" src="<?php echo $logo?>">
 							</a>
