@@ -24,13 +24,13 @@ body {
 
 #project_title {
 	height: 36px; 
-	margin-top: 10px;
+	margin-top: 8px;
 	vertical-align: middle; 
 	border: 0px none;
 	line-height: 36px;
 	color: white;
 	font-weight: bold;
-	font-size: large;
+	font-size: 22px;
 }
 
 .navbar-collapse {
