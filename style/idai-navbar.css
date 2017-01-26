@@ -154,12 +154,15 @@ body {
 	padding: 2em;
 	overflow-y: auto;
 	color: black;
+	z-index: 1100;
+	text-align: justify;
+	max-width: 1024px;
 }
 
 
 .idai-infobox:focus,
 .idai-infobox:hover {
-	color: #37588e;
+	color: black;
 	text-decoration: none;
 }
 
