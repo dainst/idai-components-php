@@ -159,6 +159,25 @@ body {
 	max-width: 1024px;
 }
 
+.idai-infobox:after {
+	content: "\E088";
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	color: #286090;
+	font-size: 22px;
+	font-family: 'Glyphicons Halflings';
+	font-weight: 400;
+	line-height: 1.42857;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
 
 .idai-infobox:focus,
 .idai-infobox:hover {
@@ -170,7 +189,6 @@ body {
 	height: 60px
 }
 
-	
 
 /* override jquery UI Interaction states */
 

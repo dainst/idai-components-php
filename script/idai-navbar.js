@@ -35,7 +35,11 @@ jQuery(document).ready(function(){
 	jQuery('#dai_navbar .navbar-toggle').click(navbarToggle);
 	
 	jQuery('.idai-infobox-toggle').click(function(evt) {
-		jQuery(this).find('.idai-infobox').toggle();
+		var box = jQuery(this).find('.idai-infobox');
+		if (box.css('display') != 'block') {
+			jQuery('.idai-infobox-toggle .idai-infobox').toggle(false);
+		}
+		box.toggle();
 	})
 	
 });
