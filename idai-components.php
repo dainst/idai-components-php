@@ -338,13 +338,16 @@ namespace idai {
 		}
 		
 		private function _footer_link($link) {
+
+
+			$id = (isset($link['id'])) ? "id='{$link['id']}'" : '';
 			
 			if ((isset($link['moreinfo']) and $link['moreinfo'] != '')) {
-				return "{$link['text']} <span class='idai-infobox-toggle'>{$link['label']}<span class='idai-infobox'>{$link['moreinfo']}</span></span>";
+				return "{$link['text']} <span class='idai-infobox-toggle' $id>{$link['label']}<span class='idai-infobox'>{$link['moreinfo']}</span></span>";
 			} else {
 				$target = (isset($link['target']) and $link['target']) ? 'target="' . $link['target'] . '"' : '';
 				$onclick = "href='{$link['href']}' $target";
-				return "{$link['text']} <a $onclick>{$link['label']} $moreinfo</a>";
+				return "{$link['text']} <a $onclick $id>{$link['label']} $moreinfo</a>";
 			}
 				
 			
