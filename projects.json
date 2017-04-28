@@ -1,10 +1,13 @@
 [
-    ["http://www.dainst.org/de/forschung/forschung-digital/idai.welt", "iDAI.welt"],
+    ["http://www.dainst.org/de/forschung/forschung-digital", "iDAI.welt"],
     [],
-	["https://gazetteer.dainst.org/", "iDAI.gazetteer"],
+  	["http://zenon.dainst.org", "iDAI.bibliography&nbsp;/&nbsp;Zenon"],
+  	["http://chronontology.dainst.org/", "iDAI.chronontology"],
+  	["https://gazetteer.dainst.org/", "iDAI.gazetteer"],
 	["http://geoserver.dainst.org/", "iDAI.geoserver"],
-	["http://arachne.uni-koeln.de/", "iDAI.objects&nbsp;/&nbsp;Arachne"],
-	["http://zenon.dainst.org", "iDAI.bibliography&nbsp;/&nbsp;Zenon"],
-	["http://archwort.dainst.org", "iDAI.vocab"],
+	["https://arachne.dainst.org/", "iDAI.objects&nbsp;/&nbsp;Arachne"],
+	["http://thesauri.dainst.org", "iDAI.thesaurus"],
+	["https://publications.dainst.org", "iDAI.publications"],
+	["http://archwort.dainst.org", "iDAI.vocab&nbsp;/&nbsp;Archwort"],
 	["http://hellespont.dainst.org", "Hellespont"]
 ]
