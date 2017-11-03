@@ -1,25 +1,25 @@
-<?php 
+<?php
 
 namespace idai {
-	
+
 	class components {
-		
+
 		public $settings = null;
-		
+
 		private $_defaults = array(
 				"path" => "",
-				
+
 				"webpath" => "",
-				
+
 				"return" => false, // return or echo everything?
-				
+
 				"logo" => array(
 					"src" => "small logo for header",
 					"text" => "ProjectTitle",
 					"href" => "/",
 					"href2" => false // for text only
 				),
-				
+
 				"search" => array(
 					"invisible" => false,
 					"href" => "someurl.php",
@@ -31,6 +31,13 @@ namespace idai {
 				),
 
 				"buttons" => array(
+
+					"languagemenu" => array(
+						"label" => "",
+						"src" => "language-icon.png",
+						"submenu" => array()
+					),
+
 					"usermenu"	=>  array(
 						"label" => "Usermenu",
 						"submenu" => array(
@@ -56,13 +63,13 @@ namespace idai {
 					),
 
 				),
-				
+
 				"user" => array(
-					"name" => false	
+					"name" => false
 				),
-				
+
 				"version" => '1.0',
-				
+
 				"institutions" => array(
 					"dai" => array(
 						"title" => "dai_logo",
@@ -70,13 +77,13 @@ namespace idai {
 						"href" => "http://www.dainst.org"
 					)
 				),
-				
+
 				"footer_links" => array(
 					'licence' => array(
 						'text' => 'Licensed under',
 						'label' => 'Creative Commons',
 						'href' => 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
-						'target' => '_blank' 
+						'target' => '_blank'
 					),
 					'contact' => array(
 						'text' => ' Report bugs to',
@@ -84,9 +91,9 @@ namespace idai {
 						'href' => 'mailto:somemail@dainst.org',
 					)
 				),
-				
+
 				"footer_classes" => array(),
-				
+
 				// select jquery+navbar or jquery+boostrap
 				"scripts"	=> array(
 					'jquery' 	=> array(
@@ -102,13 +109,17 @@ namespace idai {
 						'src'		=>	'script/idai-navbar.js'
 					)
 				)
-				
+
 
 		);
-		
+
 		function __construct($settings = array()) {
-			
-			// default callbacks			
+
+			if (!isset($settings['webpath'])) {
+				throw new \Exception("Webpath for idai-components-php not set");
+			}
+
+			// default callbacks
 			$this->_defaults['buttons']['register']['show'] = function($btn, $set) {
 				$btn['invisible']	= ($set['user']['name']);
 				return $btn;
@@ -122,22 +133,27 @@ namespace idai {
 				$btn['invisible']	= ($set['user']['name']);
 				return $btn;
 			};
-			
+
+			// default paths
+			$this->_defaults['buttons']['languagemenu']['src'] = $settings['webpath'] . 'img/language-icon.png';
+
 			// construct settings
 			$set = $this->_defaults;
 			$set['projects'] = json_decode(file_get_contents(realpath(__DIR__ . '/projects.json')));
 			$set = array_replace_recursive($set, $settings);
 			$this->settings = $set;
 			$this->path = realpath(__DIR__);
-			
-			
+
+
+
+
 		}
-	
+
 		/**
-		 * includes the required stylsheets and javascripts 
+		 * includes the required stylsheets and javascripts
 		 * include in <head>
 		 */
-		function header($path = null) { 
+		function header($path = null) {
 
 			if ($path) {
 				$this->settings['webpath'] = $path;
@@ -151,35 +167,35 @@ namespace idai {
 	  			<link type='image/x-icon' href='{$path}img/favicon.ico' rel='shortcut icon' />
 				<link rel='stylesheet' href='{$path}style/idai-components.min.css' type='text/css' media='screen' />
 				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />";
-							
+
 			foreach ($this->settings['scripts'] as $script) {
 				if ($script['include']) {
 					$code .= "\n<script type='text/javascript' src='{$path}{$script['src']}'></script>";
 				}
 			}
-				
+
 			if ($this->settings['return']) {
 				return $code;
 			} else {
 				echo $code;
 			}
 		}
-		
+
 		/**
 		 * render the blue navbar
 		 * include after body
-		 * 
+		 *
 		 * @param some $content directly insert in the navbar
 		 * @return string
 		 */
-		function navbar($content) { 
+		function navbar($content) {
 			if ($this->settings['return']) {
 				$return = ob_start();
 			}
 			?>
 			<div id='dai_navbar' class='navbar navbar-default navbar-fixed-top'>
 				<div id="navbar_left">
-				
+
 					<div class="pull-left">
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
@@ -203,30 +219,30 @@ namespace idai {
 						<?php echo "<span id='project_title' class='pull-left'>{$this->settings['logo']['text']}</span>"; ?>
 					</a>
 				</div>
-			 
+
 				<?php /* */ ?>
-			
-				<?php /* this button for mobile menu and stuff */ ?>				
+
+				<?php /* this button for mobile menu and stuff */ ?>
 				<button class="navbar-toggle" type="button">
-					<span class="sr-only">Toggle navigation</span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-			
+
 				<div class="navbar-collapse collapse" id="collapsable_navbar">
 					<?php if (!$this->settings['search']['invisible'] and is_array($this->settings['search']) and count($this->settings['search'])) { ?>
-						<form 
-							class="navbar-left navbar-form input-group form-inline" 
-							role="search" 
-							action="<?php echo $this->settings['search']['href']; ?>" 
+						<form
+							class="navbar-left navbar-form input-group form-inline"
+							role="search"
+							action="<?php echo $this->settings['search']['href']; ?>"
 							method="<?php echo $this->settings['search']['method']; ?>"
 							onsubmit="<?php echo $this->settings['search']['onsubmit']; ?>"
 						>
 							<input
-								class="form-control" 
-								placeholder="<?php echo $this->settings['search']['label']; ?>" 
-								name="<?php echo $this->settings['search']['name']; ?>" 
+								class="form-control"
+								placeholder="<?php echo $this->settings['search']['label']; ?>"
+								name="<?php echo $this->settings['search']['name']; ?>"
 								type="text"
 							>
 							<?php foreach ($this->settings['search']['params'] as $param => $val) {?>
@@ -239,9 +255,9 @@ namespace idai {
 							</span>
 						</form>
 					<?php } ?>
-									
+
 					<ul class="nav navbar-nav navbar-right">
-						<?php 
+						<?php
 						ksort($this->settings['buttons']);
 						if (count($this->settings['buttons'])) {
 							//echo '<li><div class="btn-group btn-group-sm">';
@@ -250,8 +266,8 @@ namespace idai {
 								if (is_array($btn) and ($i++ == count($this->settings['buttons']) - 1)) {
 									$btn['class'] .= ' navbar_mostright';
 								}
-								$this->_navbar_button($btn, $id); 
-								
+								$this->_navbar_button($btn, $id);
+
 							}
 							//echo '</div></li>';
 						}
@@ -259,33 +275,34 @@ namespace idai {
 					</ul>
 					<?php echo $content; ?>
 				</div>
-								
+
 			</div>
-			<?php 
+			<?php
 			if ($this->settings['return']) {
 				return ob_get_clean();
 			}
 		}
-		
+
 		private function _navbar_button(&$data, $id) {
 			//print_r($data); die("!");
 			if (!is_array($data)) {
 				 echo (string) $data;
 				 return;
 			}
-			
+
 			// call transform function if available
 			if (isset($data['show']) and (gettype($data['show']) == 'object')) {
 				$data = call_user_func($data['show'], $data, $this->settings);
 			}
-			
+
 
 			if (!isset($data['invisible']) or !$data['invisible']) {
-			
+
 				if (isset($data['submenu']) and count($data['submenu'])) {
 					echo "<li class='dropdown {$data['class']}' id='navbar-item-{$id}'>";
 					echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>";
-					echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';					
+					echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';
+					echo (isset($data['src'])) ? "<img class='nav-icon' src='{$data['src']}' alt='icon'>" : '';
 					echo "<span class='nav-label'>{$data['label']}</span> <b class='caret'></b></a>";
 					echo '<ul class="dropdown-menu">';
 					foreach ($data['submenu'] as $sub) {
@@ -295,22 +312,23 @@ namespace idai {
 					}
 					echo "</ul>";
 					echo "</li>";
-					return;			
+					return;
 				}
 
 
 				echo "<li class='{$data['class']}' id='navbar-item-{$id}'>"; 			//class='btn btn-sm btn-default navbar-btn'
 				echo "<a type='button' href='{$data['href']}' onclick='{$data['onclick']}'>";
 				echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';
+				echo (isset($data['src'])) ? "<img class='nav-icon' src='{$data['src']}' alt='icon'>" : '';
 				echo "<span class='nav-label'>{$data['label']}</span></a></li>";
 			}
 		}
-		
-		
-		function footer() { 
+
+
+		function footer() {
 			if ($this->settings['return']) {
 				$return = ob_start();
-			}			
+			}
 			?>
 			<div id="idai-footer" class="row <?php echo implode(" ", $this->settings["footer_classes"]); ?>">
 				<div class="col-md-12 text-center">
@@ -330,32 +348,32 @@ namespace idai {
 					<?php } ?>
 				</div>
 			</div>
-			<?php 
+			<?php
 			if ($this->settings['return']) {
 				return ob_get_clean();
 			}
-		
+
 		}
-		
+
 		private function _footer_link($link) {
 
 
 			$id = (isset($link['id'])) ? "id='{$link['id']}'" : '';
-			
+
 			if ((isset($link['moreinfo']) and $link['moreinfo'] != '')) {
 				return "{$link['text']} <span class='idai-infobox-toggle' $id>{$link['label']}<span class='idai-infobox'>{$link['moreinfo']}</span></span>";
 			} else {
 				$target = (isset($link['target']) and $link['target']) ? 'target="' . $link['target'] . '"' : '';
 				$onclick = "href='{$link['href']}' $target";
-				return "{$link['text']} <a $onclick $id>{$link['label']} $moreinfo</a>";
+				return "{$link['text']} <a $onclick $id>{$link['label']} {$link['moreinfo']}</a>";
 			}
-				
-			
-			
+
+
+
 		}
-		
+
 	}
-	
-	
+
+
 }
 ?>

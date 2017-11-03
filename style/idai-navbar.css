@@ -13,19 +13,19 @@ body {
 }
 
 #navbar_left {
-	padding-left:0px; 
+	padding-left:0px;
 	position:relative
 }
 
 #projectLogo img {
-	height: 36px; 
+	height: 36px;
 	margin-top: 8px;
 }
 
 #project_title {
-	height: 36px; 
+	height: 36px;
 	margin-top: 8px;
-	vertical-align: middle; 
+	vertical-align: middle;
 	border: 0px none;
 	line-height: 36px;
 	color: white;
@@ -34,7 +34,7 @@ body {
 }
 
 .navbar-collapse {
-	padding-left: 10px; 
+	padding-left: 10px;
 	height: 0px;
 }
 
@@ -53,14 +53,18 @@ body {
 .navbar-nav .glyphicon {
 	padding-top: 2px;
 	height: 20px
-} 
+}
 
 .navbar-nav .glyphicon + .nav-label {
 	padding-left: 4px
 }
 
+.navbar-nav img.nav-icon {
+	max-height: 20px;
+}
+
 .navbar-nav .longlabel {
-	display: none	
+	display: none
 }
 
 .dropdown-title {
@@ -78,7 +82,7 @@ body {
 	    height: 100%;
 	    margin-top: 50px;
 	}
-	
+
 	.collapse.in .dropdown-menu {
 		float: none;
 		position: relative !important;
@@ -87,29 +91,29 @@ body {
 		border-top-left-radius: 4px !important;
 		border-top-right-radius: 4px !important;
 	}
-	
+
 	.collapse.in .caret {
 		display: none
 	}
-	
+
 	.collapse.in .dropdown-menu::before {
 		display: none !important
 	}
-	
+
 	.collapse.in .navbar-nav:first-of-type li:last-child,
 	.collapse.in .navbar_mostright {
 		margin-right: 0px;
 		margin-left: 0px;
 	}
-	
+
 	.collapse.in .navbar-nav .longlabel {
 		display: inline
 	}
-	
+
 	.collapse.in .dropdown-title {
 		display: none
 	}
-	
+
 }
 
 /* footer */
@@ -237,7 +241,7 @@ body {
     border: 1px solid transparent;
     border-radius: 3px;
 	font-size: x-small;
-    
+
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -279,7 +283,7 @@ body {
     outline: none;
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {	    
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
 	color: #8A6D3B;
     background-image: none;
     background-color: #FCF8E3;
