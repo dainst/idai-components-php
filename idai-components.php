@@ -94,7 +94,8 @@ namespace idai {
 
 				"footer_classes" => array(),
 
-				// select jquery+navbar or jquery+boostrap
+				// select jquery+navbar or jquery+bootstrap
+				// include may contain a string also, to include scripts on different positions manually, but true means in <head>
 				"scripts"	=> array(
 					'jquery' 	=> array(
 						'include' 	=>	true,
@@ -109,7 +110,6 @@ namespace idai {
 						'src'		=>	'script/idai-navbar.js'
 					)
 				)
-
 
 		);
 
@@ -168,10 +168,8 @@ namespace idai {
 				<link rel='stylesheet' href='{$path}style/idai-components.min.css' type='text/css' media='screen' />
 				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />";
 
-			foreach ($this->settings['scripts'] as $script) {
-				if ($script['include']) {
-					$code .= "\n<script type='text/javascript' src='{$path}{$script['src']}'></script>";
-				}
+			if (!$this->settings['scriptinclude']) {
+				$code .= $this->getScripts();
 			}
 
 			if ($this->settings['return']) {
@@ -180,6 +178,22 @@ namespace idai {
 				echo $code;
 			}
 		}
+
+			/**
+			 * return string including alls registered scripts
+			 *
+			 * @return string
+			 */
+		function getScripts($position = true) {
+			$code = "";
+			foreach ($this->settings['scripts'] as $script) {
+				if ($script['include'] === $position) {
+					$code .= "\n<script type='text/javascript' src='{$this->settings['webpath']}{$script['src']}'></script>";
+				}
+			}
+			return $code;
+		}
+
 
 		/**
 		 * render the blue navbar
