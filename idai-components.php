@@ -109,6 +109,21 @@ namespace idai {
 						'include' 	=>	true,
 						'src'		=>	'script/idai-navbar.js'
 					)
+				),
+
+				"styles"	=>	array(
+					'idai-components.min' => array(
+						'include'	=>	true,
+						'src'		=>	'style/idai-components.min.css'
+					),
+					'idai-components' => array(
+						'include'	=>	false,
+						'src'		=>	'style/idai-components.css'
+					),
+					'idai-navbar' => array(
+						'include'	=>	true,
+						'src'		=>	'style/idai-navbar.css'
+					)
 				)
 
 		);
@@ -162,15 +177,12 @@ namespace idai {
 			}
 			//$path = realpath($path);
 
-			$code = "
-				<link type='image/x-icon' href='{$path}img/favicon.ico' rel='icon' />
-	  			<link type='image/x-icon' href='{$path}img/favicon.ico' rel='shortcut icon' />
-				<link rel='stylesheet' href='{$path}style/idai-components.min.css' type='text/css' media='screen' />
-				<link rel='stylesheet' href='{$path}style/idai-navbar.css' type='text/css' media='screen' />";
+			$code = "<link type='image/x-icon' href='{$path}img/favicon.ico' rel='icon' />
+	  				<link type='image/x-icon' href='{$path}img/favicon.ico' rel='shortcut icon' />";
 
-			if (!$this->settings['scriptinclude']) {
-				$code .= $this->getScripts();
-			}
+			$code .= $this->getStyles();
+			$code .= $this->getScripts();
+
 
 			if ($this->settings['return']) {
 				return $code;
@@ -179,16 +191,31 @@ namespace idai {
 			}
 		}
 
-			/**
-			 * return string including alls registered scripts
-			 *
-			 * @return string
-			 */
+		/**
+		 * return string including alls registered scripts
+		 *
+		 * @return string
+		 */
 		function getScripts($position = true) {
 			$code = "";
 			foreach ($this->settings['scripts'] as $script) {
 				if ($script['include'] === $position) {
 					$code .= "\n<script type='text/javascript' src='{$this->settings['webpath']}{$script['src']}'></script>";
+				}
+			}
+			return $code;
+		}
+
+		/**
+		 * @return string
+		 * the same for stylesheets
+		 */
+		function getStyles($position = true) {
+			$code = "";
+			foreach ($this->settings['styles'] as $style) {
+				if ($style['include'] === $position) {
+					$media = isset($style['media']) ? $style['media'] : 'screen';
+					$code .= "<link rel='stylesheet' href='{$this->settings['webpath']}{$style['src']}' type='text/css' media='$media' />";
 				}
 			}
 			return $code;
