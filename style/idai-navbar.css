@@ -60,7 +60,7 @@ body {
 }
 
 .navbar-nav img.nav-icon {
-	max-height: 20px;
+	max-height: 17px;
 }
 
 .navbar-nav .longlabel {
@@ -125,6 +125,14 @@ body {
 	background-color: #e2e2e2;
 	margin-left: 0px;
 	margin-right: 0px;
+}
+#idai-footer:before,
+#idai-footer:after {
+	content: " ";
+	display: table;
+}
+#idai-footer:after {
+	clear: both;
 }
 
 #idai-footer p:last-child {
