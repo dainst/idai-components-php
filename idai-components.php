@@ -256,7 +256,7 @@ namespace idai {
 					<a href="<?php echo $this->settings['logo']['href']; ?>" id="projectLogo">
 						<?php echo "<img src='{$this->settings['logo']['src']}' class='pull-left'>"; ?>
 					</a>
-					<a href="<?php echo $this->settings['logo']['href2'] ? $this->settings['logo']['href2'] : $this->settings['logo']['href']; ?>" id="projectLogo">
+					<a href="<?php echo $this->settings['logo']['href2'] ? $this->settings['logo']['href2'] : $this->settings['logo']['href']; ?>" id="projectLogoText">
 						<?php echo "<span id='project_title' class='pull-left'>{$this->settings['logo']['text']}</span>"; ?>
 					</a>
 				</div>
