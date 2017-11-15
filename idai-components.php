@@ -200,7 +200,8 @@ namespace idai {
 			$code = "";
 			foreach ($this->settings['scripts'] as $script) {
 				if ($script['include'] === $position) {
-					$code .= "\n<script type='text/javascript' src='{$this->settings['webpath']}{$script['src']}'></script>";
+					$url = $this->getUrl($script['src']);
+					$code .= "\n<script type='text/javascript' src='$url'></script>";
 				}
 			}
 			return $code;
@@ -215,10 +216,15 @@ namespace idai {
 			foreach ($this->settings['styles'] as $style) {
 				if ($style['include'] === $position) {
 					$media = isset($style['media']) ? $style['media'] : 'screen';
-					$code .= "<link rel='stylesheet' href='{$this->settings['webpath']}{$style['src']}' type='text/css' media='$media' />";
+					$url = $this->getUrl($style['src']);
+					$code .= "<link rel='stylesheet' href='$url' type='text/css' media='$media' />";
 				}
 			}
 			return $code;
+		}
+
+		function getUrl($url) {
+			return (substr($url, 0, 4) == 'http') ? $url : $this->settings['webpath'] . $url;
 		}
 
 
@@ -300,6 +306,7 @@ namespace idai {
 					<ul class="nav navbar-nav navbar-right">
 						<?php
 						ksort($this->settings['buttons']);
+						$i = 0;
 						if (count($this->settings['buttons'])) {
 							//echo '<li><div class="btn-group btn-group-sm">';
 							foreach ($this->settings['buttons'] as $id => $btn) {

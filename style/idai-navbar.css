@@ -8,12 +8,12 @@ addtions to idai-components.css
 */
 
 body {
-	margin-top: 60px;
+	margin-top: 52px;
 	margin-bottom: 250px;
 }
 
 #navbar_left {
-	padding-left:0px;
+	padding-left:0;
 	position:relative
 }
 
@@ -33,7 +33,7 @@ body {
 	height: 36px;
 	margin-top: 8px;
 	vertical-align: middle;
-	border: 0px none;
+	border: 0 none;
 	line-height: 36px;
 	color: white;
 	font-weight: bold;
@@ -42,7 +42,7 @@ body {
 
 .navbar-collapse {
 	padding-left: 10px;
-	height: 0px;
+	height: 0;
 }
 
 .navbar-collapse .navbar-nav:first-of-type li:last-child {
@@ -50,7 +50,7 @@ body {
 }
 
 .navbar-right .dropdown-menu {
-	left: 0px
+	left: 0
 }
 
 #dai_navbar .dropdown-menu > li > a {
