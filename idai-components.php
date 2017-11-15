@@ -365,10 +365,10 @@ namespace idai {
 
 
 				echo "<li class='{$data['class']}' id='navbar-item-{$id}'>"; 			//class='btn btn-sm btn-default navbar-btn'
-				echo "<a type='button' href='{$data['href']}' onclick='{$data['onclick']}'>";
+				echo "<a href='{$data['href']}' onclick='{$data['onclick']}'>";
 				echo (isset($data['glyphicon'])) ? "<span class='glyphicon glyphicon-{$data['glyphicon']}'></span>" : '';
 				echo (isset($data['src'])) ? "<img class='nav-icon' src='{$data['src']}' alt='icon'>" : '';
-				echo "<span class='nav-label'>{$data['label']}</span></a></li>";
+				echo "<span class='nav-label'>{$data['label']}</span></li>";
 			}
 		}
 
