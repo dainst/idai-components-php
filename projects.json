@@ -7,7 +7,8 @@
 	["http://geoserver.dainst.org/", "iDAI.geoserver"],
 	["https://arachne.dainst.org/", "iDAI.objects&nbsp;/&nbsp;Arachne"],
 	["http://thesauri.dainst.org", "iDAI.thesaurus"],
-	["https://publications.dainst.org", "iDAI.publications"],
+	["https://publications.dainst.org/journals", "iDAI.publications / journals"],
+	["https://publications.dainst.org/books", "iDAI.publications / books"],
 	["http://archwort.dainst.org", "iDAI.vocab&nbsp;/&nbsp;Archwort"],
 	["http://hellespont.dainst.org", "Hellespont"]
 ]
