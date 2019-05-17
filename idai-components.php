@@ -143,7 +143,8 @@ namespace idai {
 			};
 
 			// default paths
-			$this->_defaults['buttons']['languagemenu']['src'] = $settings['webpath'] . 'img/language-icon.png';
+            // uncommented since this caused a second non-working language-menu to appear
+			// $this->_defaults['buttons']['languagemenu']['src'] = $settings['webpath'] . 'img/language-icon.png';
 
 			// construct settings
 			$set = $this->_defaults;
