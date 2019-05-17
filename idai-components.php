@@ -30,39 +30,32 @@ namespace idai {
 					"params" => array()
 				),
 
-				"buttons" => array(
+                "buttons" => array(
+                    "usermenu"  =>  array(
+                        "label" => "Usermenu",
+                        "submenu" => array(
+                            "logout" => array(
+                                "href" => "#",
+                                "label" => "Sign Out",
+                                'glyphicon' => 'log-out'
+                            )
+                        )
+                    ),
+                    "login" => array(
+                            "href" => "#",
+                            "label" => "Sign In",
+                            'glyphicon' => 'log-in'
+                    ),
+                    "register" => array(
+                        "href" => "#",
+                        "label" => "Sign Up"
+                    ),
+                    "zzzzcontact" => array(
+                        "href" => "#",
+                        'glyphicon' => 'envelope'
+                    ),
 
-					"languagemenu" => array(
-						"label" => "",
-						"src" => "language-icon.png",
-						"submenu" => array()
-					),
-
-					"usermenu"	=>  array(
-						"label" => "Usermenu",
-						"submenu" => array(
-							"logout" => array(
-								"href" => "#",
-								"label" => "Sign Out",
-								'glyphicon' => 'log-out'
-							)
-						)
-					),
-					"login" => array(
-							"href" => "#",
-							"label" => "Sign In",
-							'glyphicon' => 'log-in'
-					),
-					"register" => array(
-						"href" => "#",
-						"label" => "Sign Up"
-					),
-					"zzzzcontact" => array(
-						"href" => "#",
-						'glyphicon' => 'envelope'
-					),
-
-				),
+                ),
 
 				"user" => array(
 					"name" => false
