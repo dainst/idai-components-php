@@ -247,7 +247,7 @@ namespace idai {
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle='dropdown'><img src="<?php echo $this->settings['webpath']; ?>img/kleinergreif.png" id="brand-img"> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-                                    <iframe src="https://arachne.dainst.org/idai-nav.html"
+                                    <iframe src="https://idai.world/config/idai-nav.html"
                                         frameborder="0" style="height: 100vh; width: 200px;"></iframe>
 								</ul>
 							</li>
