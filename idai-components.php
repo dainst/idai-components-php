@@ -154,7 +154,6 @@ namespace idai {
 
 			// construct settings
 			$set = $this->_defaults;
-			$set['projects'] = json_decode(file_get_contents(realpath(__DIR__ . '/projects.json')));
 			$set = array_replace_recursive($set, $settings);
 			$this->settings = $set;
 			$this->path = realpath(__DIR__);
@@ -248,13 +247,8 @@ namespace idai {
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle='dropdown'><img src="<?php echo $this->settings['webpath']; ?>img/kleinergreif.png" id="brand-img"> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<?php foreach($this->settings['projects'] as $k=>$v) { ?>
-										<?php if (count($v) == 2) { ?>
-											<?php echo "<li><a href='{$v[0]}' target='_blank'>{$v[1]}</a></li>" ?>
-										<?php } else { ?>
-											<li class="divider"></li>
-										<?php } ?>
-									<?php } ?>
+                                    <iframe src="https://arachne.dainst.org/idai-nav.html"
+                                        frameborder="0" style="height: 100vh; width: 200px;"></iframe>
 								</ul>
 							</li>
 						</ul>
